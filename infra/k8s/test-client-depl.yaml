@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-client-depl
+spec:
+  selector:
+    matchLabels:
+      app: test-client
+  template:
+    metadata:
+      labels:
+        app: test-client
+    spec:
+      containers:
+        - name: test-client
+          image: keysoutsourcedocker/test-client:0.0.1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-client-srv
+spec:
+  selector:
+    app: test-client
+  ports:
+    - name: test-client
+      protocol: TCP
+      port: 80
+      targetPort: 80
